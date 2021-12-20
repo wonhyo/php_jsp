@@ -12,6 +12,7 @@ RUN set -xe \
     && apk add --no-cache --update --virtual .phpize-deps $PHPIZE_DEPS \
     && apk add --no-cache --update --virtual .memcached-deps zlib-dev libmemcached-dev cyrus-sasl-dev \
     && apk add --no-cache --update --virtual .oci8-deps unzip \
+    && apk add --no-cache --update --virtual .openldap-deps openldap-dev \
     && curl $URL_BASE > base.zip \
     && curl $URL_SDK > sdk.zip \
     && mkdir -p /usr/lib/oracle/21/client64/bin \
@@ -41,5 +42,5 @@ RUN set -xe \
     && docker-php-ext-install pdo_mysql ldap \
     && docker-php-ext-enable igbinary memcached memcache oci8 \
     && rm -rf /tmp/* \
-    && apk del .memcached-deps .phpize-deps .oci8-deps
+    && apk del .memcached-deps .phpize-deps .oci8-deps .openldap-deps
 USER 900
