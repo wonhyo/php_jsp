@@ -3,7 +3,7 @@ ENV LD_LIBRARY_PATH /usr/lib/oracle/21/client64/lib
 ENV ORACLE_HOME /usr/lib/oracle/21/client64/lib
 ENV TNS_ADMIN /usr/lib/oracle/21/client64/lib/network/admin
 # Install PHP Extensions (igbinary & memcached + memcache)
-RUN apk add --no-cache --update libmemcached-libs zlib libnsl libaio
+RUN apk add --no-cache --update libmemcached-libs zlib libnsl libaio libldap
 RUN set -xe \
     && export URL_BASE=https://download.oracle.com/otn_software/linux/instantclient/214000/instantclient-basic-linux.x64-21.4.0.0.0dbru.zip \
     && export URL_SDK=https://download.oracle.com/otn_software/linux/instantclient/214000/instantclient-sdk-linux.x64-21.4.0.0.0dbru.zip \
