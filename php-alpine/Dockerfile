@@ -24,7 +24,6 @@ RUN set -xe \
     && ln -sf /lib/libc.musl-x86_64.so.1 /lib/libresolv.so.2 \
     && ln -sf /lib/ld-musl-x86_64.so.1 /lib/ld-linux-x86-64.so.2 \ 
     && echo "instantclient,${ORACLE_HOME}" | pecl install oci8-2.2.0 \
-    && rm -rf ${ORACLE_HOME}/sdk \
     && pecl install memcache-4.0.5.2 \
 # Install igbinary (memcached's deps) \
     && pecl install igbinary \
@@ -39,8 +38,9 @@ RUN set -xe \
         && cd /tmp/ \
     ) \
 # Enable PHP extensions \
-    && docker-php-ext-install pdo_mysql ldap \
+    && docker-php-ext-configure pdo_oci --with-pdo-oci=instantclient,$ORACLE_HOME \
+    && docker-php-ext-install pdo_mysql pdo_oci ldap \
     && docker-php-ext-enable igbinary memcached memcache oci8 \
-    && rm -rf /tmp/* \
+    && rm -rf ${ORACLE_HOME}/sdk /tmp/* \
     && apk del .memcached-deps .phpize-deps .oci8-deps .openldap-deps
 USER 900
