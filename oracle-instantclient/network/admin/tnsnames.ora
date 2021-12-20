@@ -1,0 +1,21 @@
+ORCL =
+  (DESCRIPTION =
+      (LOAD_BALANCE=ON)
+      (TRANSPORT_CONNECT_TIMEOUT=3)(RETRY_COUNT=3)
+      (ADDRESS = (PROTOCOL = TCP)(HOST = 192.168.1.11)(PORT = 1521))
+      (ADDRESS = (PROTOCOL = TCP)(HOST = 192.168.1.12)(PORT = 1521))
+      (ADDRESS = (PROTOCOL = TCP)(HOST = 192.168.1.13)(PORT = 1521))
+    (CONNECT_DATA =
+      (SERVICE_NAME = orcl.example.org)
+    )
+  )
+
+RACDB =
+  (DESCRIPTION =
+    (ADDRESS_LIST =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = scan.example.org)(PORT = 1521))
+    )
+    (CONNECT_DATA =
+      (SERVICE_NAME = racdb.example.org)
+    )
+  )

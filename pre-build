@@ -1,0 +1,8 @@
+#!/bin/bash
+
+sudo dnf remove -y nginx-filesystem || true
+sudo userdel nginx || true
+sudo groupadd -g 900 nginx || true
+sudo useradd -d /var/lib/nginx -g nginx -u 900 nginx || true
+setfacl -b nginx/log php-alpine/log || true
+setfacl -m u:nginx:rwx nginx/log php-alpine/log || true

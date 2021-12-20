@@ -1,0 +1,39 @@
+version: '3.7'
+x-extra_hosts:
+   &default-extra_hosts
+      - "memcached:192.168.1.2"
+      - "mysql:192.168.1.3"
+x-www_volumes:
+   &www_volumes 
+           ./www/html:/var/www/html
+x-tomcat_volumes:
+   &tomcat_volumes 
+           ./www/html:/usr/local/tomcat/webapps/ROOT         
+x-oracle_volumes:
+   &oracle_volumes
+           ./oracle-instantclient/network:/usr/lib/oracle/21/client64/lib/network
+services:
+   nginx:
+      build: nginx
+      ports:
+         - "80:80"
+      volumes:
+         - ./nginx/log:/var/log/nginx
+         - ./nginx/conf.d:/etc/nginx/conf.d
+         - *www_volumes
+      extra_hosts: *default-extra_hosts
+   php:
+      build: php-alpine
+      volumes:
+         - ./php-alpine/php-fpm.d:/usr/local/etc/php-fpm.d
+         - ./php-alpine/log:/usr/local/var/log
+         - *oracle_volumes
+         - *www_volumes
+      extra_hosts: *default-extra_hosts
+   jsp:
+      build: tomcat
+      volumes:
+         - *oracle_volumes
+         - *tomcat_volumes
+      extra_hosts: *default-extra_hosts
+
