@@ -15,7 +15,7 @@ RUN set -xe \
     && mv /usr/lib/oracle/21/client64/${BASE_NAME} ${ORACLE_HOME} \
     && mv /usr/lib/oracle/21/client64/lib/*i /usr/lib/oracle/21/client64/bin \
     && unzip -d /tmp /tmp/jdbc.zip \
-    && echo "CLASSPATH=\$ORACLE_HOME/ojdbc8.jar" > $CATALINA_HOME/bin/setenv.sh \
+    && echo "CLASSPATH=\$ORACLE_HOME/ojdbc8.jar:\$ORACLE_HOME/orai18n.jar" > $CATALINA_HOME/bin/setenv.sh \
     && mv /tmp/${BASE_NAME}/*.so ${ORACLE_HOME} \
     && mv /tmp/${BASE_NAME}/*.jar ${ORACLE_HOME} \
     && rm -rf /tmp/* /var/cache /var/lib/yum
