@@ -38,6 +38,7 @@ RUN set -xe \
         && cd /tmp/ \
     ) \
 # Enable PHP extensions \
+    && docker-php-ext-install pdo_mysql ldap \
     && docker-php-ext-enable igbinary memcached memcache oci8 \
     && rm -rf /tmp/* \
     && apk del .memcached-deps .phpize-deps .oci8-deps
