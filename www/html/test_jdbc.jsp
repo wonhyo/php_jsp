@@ -7,10 +7,11 @@
 <BODY>
 <%
     Connection conn = null;
+    String ClassName = "oracle.jdbc.driver.OracleDriver" ;
     try
     {
-        Class.forName("oracle.jdbc.driver.OracleDriver");
-        out.println("Found Class");
+        Class.forName(ClassName);
+        out.print("Found Class "+ ClassName +"<br>");
         conn = DriverManager.getConnection("jdbc:oracle:oci:@localhost:1521:orcl", "scott", "tiger");
         out.println("connected....!!");
 
