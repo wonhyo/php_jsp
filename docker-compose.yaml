@@ -15,6 +15,7 @@ x-oracle_volumes:
 services:
    nginx:
       build: nginx
+      restart: "unless-stopped"
       ports:
          - "80:80"
       volumes:
@@ -24,6 +25,7 @@ services:
       extra_hosts: *default-extra_hosts
    php:
       build: php-alpine
+      restart: "unless-stopped"
       volumes:
          - ./php-alpine/php-fpm.d:/usr/local/etc/php-fpm.d
          - ./php-alpine/log:/usr/local/var/log
@@ -32,6 +34,7 @@ services:
       extra_hosts: *default-extra_hosts
    jsp:
       build: tomcat
+      restart: "unless-stopped"
       volumes:
          - *oracle_volumes
          - *tomcat_volumes
